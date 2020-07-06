@@ -8,9 +8,14 @@ import Colors from '../../constants/Colors';
 const ProductDetailScreen = props => {
     const productId = props.navigation.getParam('productId');
     const selectProduct = useSelector(state => state.products.availableProducts.find(prod => prod.id === productId));
-    return <View>
-        <Text>{selectProduct.title}</Text>
-    </View>
+    return <ScrollView>
+        <Image style={styles.image} source={{ uri: selectProduct.imageUrl }} />
+        <View style={styles.action}>
+            <Button color={Colors.primary} title="Add to cart" onPress={() => { }} />
+        </View>
+        <Text style={styles.price}>${selectProduct.price.toFixed(2)}</Text>
+        <Text style={styles.description}>{selectProduct.description}</Text>
+    </ScrollView>
 };
 
 ProductDetailScreen.navigationOptions = navData => {
@@ -19,6 +24,26 @@ ProductDetailScreen.navigationOptions = navData => {
     }
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    image: {
+        width: '100%',
+        height: 300
+    },
+    action: {
+        marginVertical: 10,
+        alignItems: 'center'
+    },
+    price: {
+        fontSize: 20,
+        color: '#888888',
+        textAlign: 'center',
+        marginVertical: 20
+    },
+    description: {
+        fontSize: 14,
+        textAlign: 'center',
+        marginHorizontal: 20
+    }
+});
 
 export default ProductDetailScreen;
